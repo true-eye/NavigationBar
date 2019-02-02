@@ -1,0 +1,190 @@
+www.computefy.com:80 {
+	redir https://computefy.com{uri}
+	}
+
+computefy.com {
+	redir /home / 301
+	redir /about/us /about 301
+	redir /products/strategy /products 301
+	gzip
+	proxy / https://io.computefy.com {
+	header_upstream X-Real-IP {remote}
+	header_upstream X-Forwarded-For {remote}
+	header_upstream X-Forwarded-Proto {scheme}
+	}
+	tls eric@uceng.com
+
+	filter rule {
+        content_type text/.*
+        search_pattern (www|ssl).gstatic.com
+        replacement gstatic.computefy.com
+        }
+	
+	filter rule {
+        content_type text/.*
+        search_pattern fonts.gstatic.com
+        replacement fonts.computefy.com
+        }
+	
+	filter rule {
+        content_type text/.*
+        search_pattern fonts.googleapis.com
+        replacement gapis.computefy.com
+        }
+	
+	filter rule {
+        content_type text/.*
+        search_pattern apis.google.com
+        replacement apis.computefy.com
+        }
+	
+	filter rule {
+        content_type text/.*
+        search_pattern lh3.googleusercontent.com
+        replacement lh3.computefy.com
+        }
+
+	filter rule {
+        content_type text/.*
+        search_pattern lh4.googleusercontent.com
+        replacement lh4.computefy.com
+        }
+
+	filter rule {
+        content_type text/.*
+        search_pattern lh5.googleusercontent.com
+        replacement lh5.computefy.com
+        }
+
+	filter rule {
+        content_type text/.*
+        search_pattern lh6.googleusercontent.com
+        replacement lh6.computefy.com
+        }
+
+	filter rule {
+        content_type text/.*
+        search_pattern footer.*footer
+        replacement !----
+        }
+
+	filter rule {
+ 	content_type text/.*
+    	search_pattern "visibility: hidden;"
+    	replacement "visibility: visible; padding-right:20px;"
+	}
+	filter rule {
+ 	content_type text/.*
+    	search_pattern "display:none;"
+    	replacement ""
+	}
+
+	filter rule {
+ 	content_type text/.*
+    	search_pattern "RBEWZc\""
+    	replacement "RBEWZc\" style=\"display:none;\""
+	}
+
+	filter rule {
+        content_type text/.*
+        search_pattern Home
+        replacement "雾计算 | HOME"
+        }
+
+	filter rule {
+        content_type text/.*
+        search_pattern </title>
+        replacement "</title><link rel=\"stylesheet\" href=\"https://just.computefy.com/addNav.css\"><script src=\"https://just.computefy.com/addEffect.js\"></script>"
+        }
+
+	filter rule {
+        content_type text/.*
+        search_pattern <title(.*)HOME</title>
+        replacement "<title itemprop=\"name\">雾计算 . Computefy . 洞察万物的智能基础设施</title>"
+        }
+
+	rewrite  {
+            if {>User-agent} has Mobile
+            to /about/mobile
+        }
+
+}
+
+
+just.computefy.com {
+	gzip
+	root /root/html
+	}	
+
+gstatic.computefy.com {
+        gzip
+        proxy / https://www.gstatic.com {
+        header_upstream X-Real-IP {remote}
+        header_upstream X-Forwarded-For {remote}
+        header_upstream X-Forwarded-Proto {scheme}
+        }
+}
+
+fonts.computefy.com {
+        gzip
+        proxy / https://fonts.gstatic.com {
+        header_upstream X-Real-IP {remote}
+        header_upstream X-Forwarded-For {remote}
+        header_upstream X-Forwarded-Proto {scheme}
+        }
+}
+
+gapis.computefy.com {
+        gzip
+        proxy / https://fonts.googleapis.com {
+        header_upstream X-Real-IP {remote}
+        header_upstream X-Forwarded-For {remote}
+        header_upstream X-Forwarded-Proto {scheme}
+        }
+}
+
+apis.computefy.com {
+        gzip
+        proxy / https://apis.google.com {
+        header_upstream X-Real-IP {remote}
+        header_upstream X-Forwarded-For {remote}
+        header_upstream X-Forwarded-Proto {scheme}
+        }
+}
+
+lh3.computefy.com {
+        gzip
+        proxy / https://lh3.googleusercontent.com {
+        header_upstream X-Real-IP {remote}
+        header_upstream X-Forwarded-For {remote}
+        header_upstream X-Forwarded-Proto {scheme}
+        }
+}	
+
+lh4.computefy.com {
+        gzip
+        proxy / https://lh4.googleusercontent.com {
+        header_upstream X-Real-IP {remote}
+        header_upstream X-Forwarded-For {remote}
+        header_upstream X-Forwarded-Proto {scheme}
+        }
+}
+
+lh5.computefy.com {
+        gzip
+        proxy / https://lh5.googleusercontent.com {
+        header_upstream X-Real-IP {remote}
+        header_upstream X-Forwarded-For {remote}
+        header_upstream X-Forwarded-Proto {scheme}
+        }
+}
+
+lh6.computefy.com {
+        gzip
+        proxy / https://lh6.googleusercontent.com {
+        header_upstream X-Real-IP {remote}
+        header_upstream X-Forwarded-For {remote}
+        header_upstream X-Forwarded-Proto {scheme}
+        }
+}	
+
